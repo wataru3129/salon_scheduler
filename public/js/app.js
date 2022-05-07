@@ -5078,6 +5078,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./calendar */ "./resources/js/calendar.js");
+
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -5112,6 +5114,30 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/calendar.js":
+/*!**********************************!*\
+  !*** ./resources/js/calendar.js ***!
+  \**********************************/
+/***/ (() => {
+
+// import {
+//     Calendar
+// } from "@fullcalendar/core";
+// import dayGridPlugin from "@fullcalendar/daygrid";
+var calendarEl = document.getElementById("calendar");
+var calendar = new Calendar(calendarEl, {
+  plugins: [dayGridPlugin],
+  initialView: "dayGridMonth",
+  headerToolbar: {
+    left: "prev,next today",
+    center: "title",
+    right: ""
+  }
+});
+calendar.render();
 
 /***/ }),
 
