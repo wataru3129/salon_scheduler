@@ -16514,7 +16514,8 @@ var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__.Calendar(cale
     left: "prev,next today",
     center: "title",
     right: ""
-  }
+  },
+  locale: "ja"
 });
 calendar.render();
 

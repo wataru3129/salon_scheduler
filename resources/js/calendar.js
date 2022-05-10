@@ -13,5 +13,6 @@ let calendar = new Calendar(calendarEl, {
         center: "title",
         right: "",
     },
+    locale: "ja",
 });
 calendar.render();
