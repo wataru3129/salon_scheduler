@@ -31,6 +31,10 @@ Route::get('/calendar', function () {
     return view('calendar');
 });
 
+Route::get('/calendar-test', function () {
+    return view('calendarTest.calendar-test');
+});
+
 // Route::prefix('manager')
 //     ->middleware('can:manager-higher')
 //     ->group(function () {
