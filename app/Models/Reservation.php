@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
+
 
 class Reservation extends Model {
     use HasFactory;
@@ -16,4 +18,8 @@ class Reservation extends Model {
         'start_time',
         'end_time',
     ];
+
+    // public function customer(){
+    //     return $this->hasOne()
+    // }
 }

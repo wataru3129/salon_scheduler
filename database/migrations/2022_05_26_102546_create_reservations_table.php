@@ -13,13 +13,13 @@ return new class extends Migration {
     public function up() {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('event_id')->constrained()->onUpdate('cascade');
-            $table->text('information');
+            $table->string('customer_name');
+            // $table->foreignId('user_id')->constrained()->onUpdate('cascade');
+            // $table->foreignId('customer_id')->constrained()->onUpdate('cascade');
+            $table->text('content');
             $table->integer('max_people');
             $table->datetime('start_date');
             $table->datetime('end_date');
-            $table->boolean('is_visible');
             $table->timestamps();
         });
     }
