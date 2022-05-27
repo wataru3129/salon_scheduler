@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Customer;
+use App\Models\User;
 
 
 class Reservation extends Model {
@@ -19,7 +20,11 @@ class Reservation extends Model {
         'end_time',
     ];
 
-    // public function customer(){
-    //     return $this->hasOne()
-    // }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
 }
