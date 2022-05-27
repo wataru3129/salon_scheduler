@@ -20,6 +20,7 @@ class UserSeeder extends Seeder {
             'email' => 'test@test.com',
             'password' => Hash::make('password'),
             'created_at' => '2022/05/05 11:11:11',
+            'role' => 9,
         ]);
     }
 }

@@ -6,16 +6,14 @@ use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 
-class ReservationController extends Controller
-{
+class ReservationController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        return view('calendar.index');
     }
 
     /**
@@ -23,8 +21,7 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -34,8 +31,7 @@ class ReservationController extends Controller
      * @param  \App\Http\Requests\StoreReservationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReservationRequest $request)
-    {
+    public function store(StoreReservationRequest $request) {
         //
     }
 
@@ -45,8 +41,7 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
-    {
+    public function show(Reservation $reservation) {
         //
     }
 
@@ -56,8 +51,7 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservation $reservation)
-    {
+    public function edit(Reservation $reservation) {
         //
     }
 
@@ -68,8 +62,7 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
-    {
+    public function update(UpdateReservationRequest $request, Reservation $reservation) {
         //
     }
 
@@ -79,8 +72,7 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
-    {
+    public function destroy(Reservation $reservation) {
         //
     }
 }
