@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\VueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +20,6 @@ Route::middleware('can:user-higher')
     ->group(function () {
         Route::get('/', [ReservationController::class, 'index'])->name('index');
     });
+
+
+Route::get('vue', [VueController::class, 'index'])->name('vue.index');
