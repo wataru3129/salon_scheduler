@@ -22,7 +22,7 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        //
+        return view('reservations.create');
     }
 
     /**
@@ -32,7 +32,7 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(StoreReservationRequest $request) {
-        //
+        dd($request);
     }
 
     /**

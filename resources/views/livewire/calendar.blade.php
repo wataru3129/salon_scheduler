@@ -1,6 +1,10 @@
 <div class="py-12 px-5">
     <div id="calendar">
-        <h3 id="header">{{ $today }}</h3>
+        <h3 id="header">
+            <input id="date-picker" class="block mt-1 mx-auto mb-2" type="text" name="calendar"
+                value="{{ $today }}" wire:change="getMonth($event.target.value)" />
+            {{ $today }}
+        </h3>
 
         <!-- ボタンクリックで月移動 -->
         <div id="next-prev-button">

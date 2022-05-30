@@ -129,6 +129,24 @@ class Calendar extends Component {
         $this->numberOfWeeks = count($this->month);
     }
 
+    public function getMonth($month) {
+
+
+
+        $this->month = [];
+        $this->week = [];
+        $this->counter = 0;
+
+        $this->date = new CarbonImmutable($month);
+
+
+        $this->settingDate($this->date);
+
+        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth);
+
+        $this->numberOfWeeks = count($this->month);
+    }
+
 
     public function render() {
         return view('livewire.calendar');

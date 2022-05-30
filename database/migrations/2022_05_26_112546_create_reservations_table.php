@@ -18,12 +18,12 @@ return new class extends Migration {
             // $table->foreignId('customer_id')->constrained()->onUpdate('cascade');
             $table->foreignId('user_id')
                 ->constrained()
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('customer_id')
                 ->constrained()
                 ->onUpdate('cascade');
             $table->text('content');
-            $table->datetime('date');
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->softDeletes();

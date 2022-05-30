@@ -19,7 +19,6 @@ class ReservationSeeder extends Seeder {
             'customer_id' => 1,
             // 'guest_name',
             'content' => 'test,test,test,test',
-            'date' => '2022/05/05 11:00:00',
             'start_time' => '2022/05/05 11:00:00',
             'end_time' => '2022/05/05 12:00:00',
         ]);

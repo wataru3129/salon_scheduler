@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VueController;
+use App\Models\Reservation;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,7 @@ use App\Http\Controllers\VueController;
 Route::middleware('can:user-higher')
     ->group(function () {
         Route::get('/', [ReservationController::class, 'index'])->name('index');
+        Route::resource('reservations', ReservationController::class)->except(['index']);
     });
 
 

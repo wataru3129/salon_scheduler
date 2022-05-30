@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Reservation;
+use App\Models\Customer;
 
 class User extends Authenticatable {
     use HasApiTokens;
@@ -62,5 +63,9 @@ class User extends Authenticatable {
 
     public function reservation() {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function customer() {
+        return $this->hasMany(Customer::class);
     }
 }

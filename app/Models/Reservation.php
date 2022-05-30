@@ -12,7 +12,7 @@ class Reservation extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        // 'name',
         // 'guest_name',
         'content',
         'date',

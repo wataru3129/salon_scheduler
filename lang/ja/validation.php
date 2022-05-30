@@ -16,7 +16,7 @@ return [
     'accepted'             => ':attributeを承認してください。',
     'accepted_if' => ':otherが:valueの場合、:attributeを承認してください。',
     'active_url'           => ':attributeが有効なURLではありません。',
-    'after'                => ':attributeには、:dateより後の日付を指定してください。',
+    'after'                => ':attributeには、:dateより後の時間を指定してください。',
     'after_or_equal'       => ':attributeには、:date以降の日付を指定してください。',
     'alpha'                => ':attributeはアルファベットのみがご利用できます。',
     'alpha_dash'           => ':attributeはアルファベットとダッシュ(-)及び下線(_)がご利用できます。',
@@ -154,15 +154,14 @@ return [
      */
 
     'attributes' => [
-        'name' => 'ユーザー名',
+        'name' => '担当者',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'event_name' => 'イベント名',
-        'information' => 'イベント詳細',
-        'event_date' => 'イベントの日付',
+        'date' => '日付',
+        'content' => '内容',
+        'customer_name' => '顧客名',
         'start_time' => '開始時間',
         'end_time' => '終了時間',
-        'max_people' => '定員',
     ],
 
 ];
