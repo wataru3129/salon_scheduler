@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->foreignId('customer_id')
                 ->constrained()
                 ->onUpdate('cascade');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->softDeletes();

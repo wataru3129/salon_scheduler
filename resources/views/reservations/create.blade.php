@@ -17,6 +17,7 @@
 
                         <div class="lg:w-1/2 md:w-2/3 mx-auto">
                             <x-jet-validation-errors class="mb-4" />
+                            <x-flash-message status="session('status')" />
                             <form method="POST" action="{{ route('reservations.store') }}">
                                 @csrf
                                 <div class="-m-2">
