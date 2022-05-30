@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <x-jet-welcome /> --}}
 
-                <div class="wrapper">
+                {{-- <div class="wrapper">
                     <!-- xxxx年xx月を表示 -->
                     <h3 id="header"></h3>
 
@@ -24,10 +24,14 @@
                     <div id="calendar"></div>
                 </div>
 
-                <hr>
+                <hr> --}}
+                {{-- <script src="{{ mix('js/calendar-test.js') }}"></script> --}}
 
 
-                <script src="{{ mix('js/calendar-test.js') }}"></script>
+
+                @livewire('calendar')
+
+
             </div>
         </div>
     </div>
