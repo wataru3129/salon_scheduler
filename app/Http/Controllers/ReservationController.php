@@ -46,11 +46,11 @@ class ReservationController extends Controller {
                 ->with([
                     'message' => 'この時間帯は既に他の予約が登録済みです。',
                     'status' => 'alert',
-                    'date' => $request->date,
-                    'start_time' => $request->start_time,
-                    'end_time' => $request->end_time,
-                    'content' => $request->content,
-                    'customer_name' => $request->customer_name,
+                    'entry_date' => $request->date,
+                    'entry_start_time' => $request->start_time,
+                    'entry_end_time' => $request->end_time,
+                    'entry_content' => $request->content,
+                    'entry_customer_name' => $request->customer_name,
                 ]);
         }
         // dd(Customer::where('name', $request->customer_name)
@@ -86,7 +86,36 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Reservation $reservation) {
-        //
+
+        $reservation = Reservation::findOrFail($reservation->id);
+        return view('reservations.show');
+        // $date= $reservat
+
+        // $users = $event->users;
+
+        // $reservations = [];
+
+        // foreach ($users as $user) {
+        //     $reservedInfo = [
+        //         'name' => $user->name,
+        //         'number_of_people' => $user->pivot->number_of_people,
+        //         'canceled_date' => $user->pivot->canceled_date,
+        //     ];
+        //     array_push($reservations, $reservedInfo);
+        // }
+
+        // // dd($reservations);
+
+        // $eventDate = $event->eventDate;
+        // $startTime = $event->startTime;
+        // $endTime = $event->endTime;
+
+        // // dd($event, $eventDate, $startTime, $endTime);
+
+        // return view('manager.events.show', compact('event', 'users', 'reservations', 'eventDate', 'startTime', 'endTime'));
+
+
+        return view('reservations.show');
     }
 
     /**
@@ -118,5 +147,21 @@ class ReservationController extends Controller {
      */
     public function destroy(Reservation $reservation) {
         //
+    }
+
+    public function list(Reservation $reservation) {
+
+        $today = Carbon::today();
+
+        $reservations = DB::table('reservations')
+            ->leftJoinSub($reservedPeople, 'reservedPeople', function ($join) {
+                $join->on('events.id', '=', 'reservedPeople.event_id');
+            })
+            ->whereDate('start_date', '>=', $today)
+            ->orderBy('start_date', 'asc')
+            ->paginate(10);
+
+
+        return view('reservations.list');
     }
 }
