@@ -41,8 +41,8 @@ class ReservationFactory extends Factory {
 
 
         return [
-            'user_id' => $this->faker->numberBetween(1, 3),
-            'customer_id' => $this->faker->numberBetween(1, 9),
+            'user_id' => 1,
+            'customer_id' => $this->faker->numberBetween(0, 5),
             'content' => $this->faker->realText,
             'start_time' => $startDate,
             'end_time' => $endDate,

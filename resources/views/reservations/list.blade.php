@@ -46,10 +46,11 @@
                                             <tbody>
                                                 @foreach ($reservations as $reservation)
                                                     <tr>
-                                                        <td class="px-4 py-3"></td>
-                                                        <td class="px-4 py-3"></td>
-                                                        <td class="px-4 py-3"></td>
-                                                        <td class="px-4 py-3"></td>
+                                                        <td class="px-4 py-3">{{ $reservation->date }}</td>
+                                                        <td class="px-4 py-3">{{ $reservation->start_time }}</td>
+                                                        <td class="px-4 py-3">{{ $reservation->end_time }}</td>
+                                                        <td class="px-4 py-3">
+                                                            {{ $reservation->customer_id->name }}</td>
                                                         <td class="w-10 text-center">
                                                             <input name="plan" type="radio">
                                                         </td>

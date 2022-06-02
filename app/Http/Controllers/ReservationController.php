@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
 use App\Services\ReservationService;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 class ReservationController extends Controller {
     /**
@@ -154,14 +157,14 @@ class ReservationController extends Controller {
         $today = Carbon::today();
 
         $reservations = DB::table('reservations')
-            ->leftJoinSub($reservedPeople, 'reservedPeople', function ($join) {
-                $join->on('events.id', '=', 'reservedPeople.event_id');
-            })
-            ->whereDate('start_date', '>=', $today)
-            ->orderBy('start_date', 'asc')
+            ->where('user_id', Auth::id())
+            ->whereDate('start_time', '>=', $today)
+            ->orderBy('start_time', 'asc')
             ->paginate(10);
+        dd($reservations);
 
 
-        return view('reservations.list');
+
+        return view('reservations.list', compact('reservations'));
     }
 }
