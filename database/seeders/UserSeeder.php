@@ -38,6 +38,20 @@ class UserSeeder extends Seeder {
                     'created_at' => '2022/05/05 11:11:11',
                     'role' => 9,
                 ],
+                [
+                    'name' => 'test04',
+                    'email' => 'test04@test.com',
+                    'password' => Hash::make('password'),
+                    'created_at' => '2022/05/05 11:11:11',
+                    'role' => 9,
+                ],
+                [
+                    'name' => 'test05',
+                    'email' => 'test05@test.com',
+                    'password' => Hash::make('password'),
+                    'created_at' => '2022/05/05 11:11:11',
+                    'role' => 9,
+                ],
             ]
         );
     }

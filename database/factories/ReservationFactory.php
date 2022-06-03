@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Customer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reservation>
@@ -39,10 +40,12 @@ class ReservationFactory extends Factory {
 
         $endDate = $clone->modify('+' . $addHour . 'hour');
 
+        $customerId = $this->faker->numberBetween(1, 5);
+        $userId = Customer::findOrFail($customerId)->user_id;
 
         return [
-            'user_id' => 1,
-            'customer_id' => $this->faker->numberBetween(0, 5),
+            'user_id' => $userId,
+            'customer_id' => $customerId,
             'content' => $this->faker->realText,
             'start_time' => $startDate,
             'end_time' => $endDate,
