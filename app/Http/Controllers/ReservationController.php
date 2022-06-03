@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use App\Models\Customer;
+use App\Models\User;
 use App\Services\CustomerService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreReservationRequest;
@@ -152,16 +153,23 @@ class ReservationController extends Controller {
         //
     }
 
-    public function list(Reservation $reservation) {
+    public function list() {
 
         $today = Carbon::today();
 
-        $reservations = DB::table('reservations')
-            ->where('user_id', Auth::id())
-            ->whereDate('start_time', '>=', $today)
-            ->orderBy('start_time', 'asc')
+        // $reservations = DB::table('reservations')
+        //     ->where('user_id', Auth::id())
+        //     ->whereDate('start_time', '>=', $today)
+        //     ->orderBy('start_time', 'asc')
+        //     ->with('customer')
+        //     ->paginate(1);
+
+        $reservations = Reservation::where('user_id', Auth::id())
+            // ->whereDate('start_time', '>=', $today)
+            // ->orderBy('start_time', 'asc')
+            ->with('customer')
             ->paginate(10);
-        dd($reservations);
+
 
 
 

@@ -5,6 +5,8 @@
         </h2>
     </x-slot>
 
+    {{-- <link href="main.css" rel="{{ mix('css/clandar.css') }}"> --}}
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -46,11 +48,12 @@
                                             <tbody>
                                                 @foreach ($reservations as $reservation)
                                                     <tr>
-                                                        <td class="px-4 py-3">{{ $reservation->date }}</td>
+                                                        <td class="px-4 py-3">{{ $reservation->reservedDate }}
+                                                        </td>
                                                         <td class="px-4 py-3">{{ $reservation->start_time }}</td>
                                                         <td class="px-4 py-3">{{ $reservation->end_time }}</td>
                                                         <td class="px-4 py-3">
-                                                            {{ $reservation->customer_id->name }}</td>
+                                                            {{ $reservation->customer->name }}</td>
                                                         <td class="w-10 text-center">
                                                             <input name="plan" type="radio">
                                                         </td>

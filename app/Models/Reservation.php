@@ -26,7 +26,7 @@ class Reservation extends Model {
 
     protected function reservedDate(): Attribute {
         return new Attribute(
-            get: fn () => Carbon::parse($this->start_date)->format('Y年m月d日')
+            get: fn () => Carbon::parse($this->start_date)->format('m月d日')
         );
     }
 

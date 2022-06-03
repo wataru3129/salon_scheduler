@@ -17,12 +17,13 @@ return new class extends Migration {
             // $table->foreignId('user_id')->constrained()->onUpdate('cascade');
             // $table->foreignId('customer_id')->constrained()->onUpdate('cascade');
             $table->foreignId('user_id')
-                ->constrained()
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('customer_id')
-                ->constrained()
-                ->onUpdate('cascade');
+                ->constrained('customers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');;
             $table->text('content')->nullable();
             $table->datetime('start_time');
             $table->datetime('end_time');

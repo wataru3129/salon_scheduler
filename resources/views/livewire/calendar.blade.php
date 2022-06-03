@@ -1,3 +1,7 @@
+@push('css')
+    <link href="{{ mix('css/calendar.css') }}" rel="stylesheet">
+@endpush
+
 <div class="py-12 px-5">
     <div id="calendar">
         <h3 id="header">

@@ -15,7 +15,7 @@ class Customer extends Model {
         'user_id'
     ];
 
-    public function reservation() {
+    public function reservations() {
         return $this->hasMany(Reservation::class);
     }
 
