@@ -12,6 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('list') }}" :active="request()->routeIs('reservations.list')">
+                        予約一覧
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('reservations.create') }}" :active="request()->routeIs('reservations.create')">
                         新規予約登録
                     </x-jet-nav-link>
@@ -151,6 +156,11 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('list') }}" :active="request()->routeIs('reservations.list')">
+                予約一覧
+            </x-jet-responsive-nav-link>
+        </div>
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('reservations.create') }}" :active="request()->routeIs('reservations.create')">
                 新規予約登録

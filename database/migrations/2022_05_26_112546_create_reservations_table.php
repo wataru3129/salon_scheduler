@@ -25,8 +25,8 @@ return new class extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('cascade');;
             $table->text('content')->nullable();
-            $table->datetime('start_time');
-            $table->datetime('end_time');
+            $table->datetime('start_date');
+            $table->datetime('end_date');
             $table->softDeletes();
             $table->timestamps();
         });

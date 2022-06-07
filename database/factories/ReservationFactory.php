@@ -33,22 +33,22 @@ class ReservationFactory extends Factory {
         }
 
 
-        $dummyDate = $this->faker->dateTimeThisMonth;
+        $dummyDate = $this->faker->dateTimeThisMonth('+1 month');
         $startDate = $dummyDate->setTime($availableHour, $minutes[$mKey]);
         $clone = clone $startDate;
 
 
         $endDate = $clone->modify('+' . $addHour . 'hour');
 
-        $customerId = $this->faker->numberBetween(1, 5);
+        $customerId = $this->faker->numberBetween(1, 20);
         $userId = Customer::findOrFail($customerId)->user_id;
 
         return [
             'user_id' => $userId,
             'customer_id' => $customerId,
             'content' => $this->faker->realText,
-            'start_time' => $startDate,
-            'end_time' => $endDate,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
         ];
     }
 }

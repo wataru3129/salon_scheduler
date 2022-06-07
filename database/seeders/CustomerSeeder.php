@@ -79,6 +79,6 @@ class CustomerSeeder extends Seeder {
         //     ]
         // );
 
-        Customer::factory()->count(50)->create();
+        Customer::factory()->count(20)->create();
     }
 }

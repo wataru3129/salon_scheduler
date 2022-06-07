@@ -26,4 +26,4 @@ Route::middleware('can:user-higher')
     });
 
 
-Route::get('vue', [VueController::class, 'index'])->name('vue.index');
+// Route::get('vue', [VueController::class, 'index'])->name('vue.index');

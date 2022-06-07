@@ -20,8 +20,8 @@ class Reservation extends Model {
         'customer_id',
         'content',
         // 'date',
-        'start_time',
-        'end_time',
+        'start_date',
+        'end_date',
     ];
 
     protected function reservedDate(): Attribute {
@@ -31,11 +31,11 @@ class Reservation extends Model {
     }
 
 
-    protected function editReservedDate(): Attribute {
-        return new Attribute(
-            get: fn () => Carbon::parse($this->start_date)->format('Y-m-d')
-        );
-    }
+    // protected function editReservedDate(): Attribute {
+    //     return new Attribute(
+    //         get: fn () => Carbon::parse($this->start_time)->format('Y-m-d')
+    //     );
+    // }
 
     protected function startTime(): Attribute {
         return new Attribute(

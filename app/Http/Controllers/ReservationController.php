@@ -63,15 +63,15 @@ class ReservationController extends Controller {
 
         $customer_id = CustomerService::customerSet($request->customer_name);
 
-        $start_time = ReservationService::joinDateAndTime($request->date, $request->start_time);
-        $end_time = ReservationService::joinDateAndTime($request->date, $request->end_time);
+        $start_date = ReservationService::joinDateAndTime($request->date, $request->start_time);
+        $end_date = ReservationService::joinDateAndTime($request->date, $request->end_time);
 
         Reservation::create([
             'user_id' => Auth::id(),
             'customer_id' => $customer_id,
             'content' => $request->content,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
         ]);
 
         // session()->flash('status', '新規予約を登録しました。');
@@ -92,34 +92,7 @@ class ReservationController extends Controller {
     public function show(Reservation $reservation) {
 
         $reservation = Reservation::findOrFail($reservation->id);
-        return view('reservations.show');
-        // $date= $reservat
-
-        // $users = $event->users;
-
-        // $reservations = [];
-
-        // foreach ($users as $user) {
-        //     $reservedInfo = [
-        //         'name' => $user->name,
-        //         'number_of_people' => $user->pivot->number_of_people,
-        //         'canceled_date' => $user->pivot->canceled_date,
-        //     ];
-        //     array_push($reservations, $reservedInfo);
-        // }
-
-        // // dd($reservations);
-
-        // $eventDate = $event->eventDate;
-        // $startTime = $event->startTime;
-        // $endTime = $event->endTime;
-
-        // // dd($event, $eventDate, $startTime, $endTime);
-
-        // return view('manager.events.show', compact('event', 'users', 'reservations', 'eventDate', 'startTime', 'endTime'));
-
-
-        return view('reservations.show');
+        return view('reservations.show', compact('reservation'));
     }
 
     /**
@@ -129,7 +102,15 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Reservation $reservation) {
-        //
+
+        $reservation = Reservation::findOrFail($reservation->id);
+        if ($reservation->customer->name === '設定なし') {
+            $reservation->customer->name = '';
+        }
+
+        // $date = $reservation->start_date;
+        $date = Carbon::parse($reservation->start_date)->format('Y-m-d');
+        return view('reservations.edit', compact('reservation', 'date'));
     }
 
     /**
@@ -140,7 +121,44 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateReservationRequest $request, Reservation $reservation) {
-        //
+        // dd($request, $reservation);
+
+        $check = ReservationService::checkReservationDuplicationExceptOwn($request->id, $request->date, $request->start_time, $request->end_time);
+        // dd($check);
+        $reservation = Reservation::findOrFail($reservation->id);
+        // dd($reservation->id);
+
+        if ($check) {
+            // session()->flash('status', 'この時間帯は既に他の予約が登録済みです。');
+            $date = $request->date;
+            return to_route('reservations.edit', compact('reservation', 'date'))
+                ->with([
+                    'message' => 'この時間帯は既に他の予約が登録済みです。',
+                    'status' => 'alert',
+                    // 'entry_date' => $request->date,
+                    // 'entry_start_time' => $request->start_time,
+                    // 'entry_end_time' => $request->end_time,
+                    // 'entry_content' => $request->content,
+                    // 'entry_customer_name' => $request->customer_name,
+                ]);
+        }
+
+        $customer_id = CustomerService::customerSet($request->customer_name);
+
+        $start_date = ReservationService::joinDateAndTime($request->date, $request->start_time);
+        $end_date = ReservationService::joinDateAndTime($request->date, $request->end_time);
+
+        $reservation->customer_id = $customer_id;
+        $reservation->start_date = $start_date;
+        $reservation->end_date = $end_date;
+        $reservation->content = $request->content;
+        $reservation->save();
+
+        return to_route('list')
+            ->with([
+                'message' => '予約を修正しました。',
+                'status' => 'info'
+            ]);
     }
 
     /**
@@ -165,10 +183,11 @@ class ReservationController extends Controller {
         //     ->paginate(1);
 
         $reservations = Reservation::where('user_id', Auth::id())
-            // ->whereDate('start_time', '>=', $today)
-            // ->orderBy('start_time', 'asc')
+            ->whereDate('start_date', '>=', $today)
+            ->orderBy('start_date', 'asc')
             ->with('customer')
             ->paginate(10);
+        // dd($reservations->reservedDate);
 
 
 
