@@ -5,13 +5,19 @@ namespace App\Http\Livewire;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Livewire\Component;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 
 class Calendar extends Component {
 
     public $date;
     public $today;
+    public $day = [];
     public $month = [];
-    // public $year;
+    public $year;
     public $firstDayOfMonth;
     public $lastDayOfMonth;
     public $numberOfWeeks;
@@ -42,7 +48,7 @@ class Calendar extends Component {
 
         $this->settingDate($this->date);
 
-        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth);
+        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth, $this->year);
 
         $this->numberOfWeeks = count($this->month);
 
@@ -52,7 +58,7 @@ class Calendar extends Component {
     private function settingDate($date) {
         $this->today = $date->format('Y年m月');
         // dd($date);
-
+        $this->year = $date->year;
         $this->currentMonth = $date->month;
         $this->firstDayOfMonth = $date->day(1)->dayOfWeek;
         $this->lastDayOfMonth = $date->daysInMonth;
@@ -64,25 +70,45 @@ class Calendar extends Component {
         $this->nextMonth = $date->addMonth();
     }
 
-    private function settingMonth($firstDayOfMonth, $lastDayOfLastMonth, $lastDayOfMonth) {
+    private function settingMonth($firstDayOfMonth, $lastDayOfLastMonth, $lastDayOfMonth, $year) {
         if ($firstDayOfMonth !== 0) {
             $this->counter = $this->firstDayOfMonth;
             for ($i = 0; $i < $this->counter; $i++) {
+                // 前月の日付を追加
 
+                $checkDay = $lastDayOfLastMonth - $this->counter + $i + 1;
+
+                $day = Carbon::createFromDate($year, $this->lastMonth->month, $checkDay)->format('Y-m-d');
+
+                $check = $this->checkReservation($day);
+
+                $setDay = $this->setDay($day, $check);
+                // dd($setDay);
                 // array_push($this->week, $this->lastDayOfLastMonth - $this->counter + $i);
                 // dd($this->lastDayOfLastMonth - $this->counter + $i);
-                $this->week[] = $lastDayOfLastMonth - $this->counter + $i + 1;
+
+                $this->week[] = $setDay;
             }
         }
 
         for ($i = 1; $i <= $lastDayOfMonth; $i++) {
             if ($this->counter < 6) {
-                $this->week[] = $i;
+                $day = Carbon::createFromDate($year, $this->currentMonth, $i)->format('Y-m-d');
+                $check = $this->checkReservation($day);
+                $setDay = $this->setDay($day, $check);
+                // dd($setDay);
+                $this->week[] = $setDay;
                 $this->counter++;
 
                 if ($i == $this->lastDayOfMonth) {
                     for ($j = 1; $j < 7; $j++) {
-                        $this->week[] = $j;
+                        //来月の日にちを埋める
+                        $day = Carbon::createFromDate($year, $this->nextMonth->month, $j)->format('Y-m-d');
+                        // dd($day);
+                        $check = $this->checkReservation($day);
+                        $setDay = $this->setDay($day, $check);
+                        // dd($setDay);
+                        $this->week[] = $setDay;
                         if ($this->counter == 6) {
                             $this->month[] = $this->week;
                         }
@@ -90,12 +116,17 @@ class Calendar extends Component {
                     }
                 }
             } else {
-                $this->week[] = $i;
+                $day = Carbon::createFromDate($year, $this->currentMonth, $i)->format('Y-m-d');
+                $check = $this->checkReservation($day);
+                $setDay = $this->setDay($day, $check);
+                // dd($setDay);
+                $this->week[] = $setDay;
                 $this->month[] = $this->week;
                 $this->week = [];
                 $this->counter = 0;
             }
         }
+        // dd($this->month);
         return $this->month;
     }
 
@@ -106,10 +137,11 @@ class Calendar extends Component {
         $this->counter = 0;
 
         $this->date = $this->date->day($this->date->daysInMonth)->addMonthNoOverflow();
+        $year = $this->date->year;
 
         $this->settingDate($this->date);
 
-        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth);
+        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth, $year);
 
         $this->numberOfWeeks = count($this->month);
     }
@@ -121,10 +153,11 @@ class Calendar extends Component {
         $this->counter = 0;
 
         $this->date = $this->date->day(1)->subMonthNoOverflow();
+        $year = $this->date->year;
 
         $this->settingDate($this->date);
 
-        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth);
+        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth, $year);
 
         $this->numberOfWeeks = count($this->month);
     }
@@ -138,11 +171,12 @@ class Calendar extends Component {
         $this->counter = 0;
 
         $this->date = new CarbonImmutable($month);
+        $year = $this->date->year;
 
 
         $this->settingDate($this->date);
 
-        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth);
+        $this->settingMonth($this->firstDayOfMonth, $this->lastDayOfLastMonth, $this->lastDayOfMonth, $year);
 
         $this->numberOfWeeks = count($this->month);
     }
@@ -150,5 +184,63 @@ class Calendar extends Component {
 
     public function render() {
         return view('livewire.calendar');
+    }
+
+    private function checkReservation($date) {
+        $checkReservation = DB::table('reservations')
+            ->whereDate('start_date', '=', $date)
+            ->exists();
+
+        $checkOwnReservation = DB::table('reservations')
+            ->where('user_id', '=', Auth::id())
+            ->whereDate('start_date', '=', $date)
+            ->exists();
+
+        if ($checkOwnReservation) {
+            return 1;
+            //自分の予約がある
+        } elseif ($checkOwnReservation == false && $checkReservation) {
+            return 2;
+            //他人の予約のみある
+        } else {
+            return 0;
+            //予約が無い
+        }
+    }
+
+    private function setDay($day, $checkReservation) {
+
+        $today = new Carbon($day);
+
+        switch ($today->dayOfWeek) {
+            case 0:
+                $dayOfWeek = '日';
+                break;
+
+            case 1:
+                $dayOfWeek = '月';
+                break;
+            case 2:
+                $dayOfWeek = '火';
+                break;
+            case 3:
+                $dayOfWeek = '水';
+                break;
+            case 4:
+                $dayOfWeek = '木';
+                break;
+            case 5:
+                $dayOfWeek = '金';
+                break;
+            case 6:
+                $dayOfWeek = '土';
+                break;
+        }
+
+        return [
+            'date' => $today->day,
+            'dayOfWeek' => $dayOfWeek,
+            'checkReservation' => $checkReservation,
+        ];
     }
 }

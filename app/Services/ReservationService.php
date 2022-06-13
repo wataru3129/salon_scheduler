@@ -50,4 +50,12 @@ class ReservationService {
 
     return Carbon::createFromFormat('Y-m-d H:i', $joinedDate);
   }
+
+
+  public static function checkReservationOfTheDay($date){
+
+    $
+
+    $check = Reservation::
+  }
 }

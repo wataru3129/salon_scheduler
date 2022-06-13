@@ -4,17 +4,20 @@
 
 <div class="py-12 px-5">
     <div id="calendar">
-        <h3 id="header">
+        <div id="header">
             <input id="date-picker" class="block mt-1 mx-auto mb-2" type="text" name="calendar"
                 value="{{ $today }}" wire:change="getMonth($event.target.value)" />
             {{ $today }}
-        </h3>
+
+            <div id="next-prev-button">
+                <button id="prev" wire:click="changeToLastMonth()">‹</button>
+                <button id="next" wire:click="changeToNextMonth()">›</button>
+            </div>
+        </div>
 
         <!-- ボタンクリックで月移動 -->
-        <div id="next-prev-button">
-            <button id="prev" wire:click="changeToLastMonth()">‹</button>
-            <button id="next" wire:click="changeToNextMonth()">›</button>
-        </div>
+
+        {{-- <table class="md:w-4/5"> --}}
         <table>
             <thead>
                 <tr>
@@ -27,13 +30,16 @@
                     <th>土</th>
                 </tr>
             </thead>
+
             @foreach ($month as $index => $week)
                 <tr>
                     @for ($i = 0; $i < 7; $i++)
-                        @if (($index == 0 && $month[$index][$i] > 7) || ($index == $numberOfWeeks - 1 && $month[$index][$i] < 22))
-                            <th class="text-slate-300">{{ $month[$index][$i] }}</th>
+                        @if (($index == 0 && $month[$index][$i]['date'] > 7) || ($index == $numberOfWeeks - 1 && $month[$index][$i]['date'] < 22))
+                            <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
+                                reservation="{{ $month[$index][$i]['checkReservation'] }}" month="notThisMonth" />
                         @else
-                            <th>{{ $month[$index][$i] }}</th>
+                            <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
+                                reservation="{{ $month[$index][$i]['checkReservation'] }}" month="thisMonth" />
                         @endif
                     @endfor
                 </tr>
