@@ -8,10 +8,11 @@ use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservation extends Model {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         // 'name',

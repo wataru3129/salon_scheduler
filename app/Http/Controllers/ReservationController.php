@@ -168,7 +168,12 @@ class ReservationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reservation $reservation) {
-        //
+        $reservation->delete();
+        return redirect()->route('list')
+            ->with([
+                'message' => '予約を削除しました。',
+                'status' => 'alert'
+            ]);
     }
 
     public function list() {
