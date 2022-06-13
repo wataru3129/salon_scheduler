@@ -199,4 +199,28 @@ class ReservationController extends Controller {
 
         return view('reservations.list', compact('reservations'));
     }
+
+    public function past() {
+
+        $today = Carbon::today();
+
+        // $reservations = DB::table('reservations')
+        //     ->where('user_id', Auth::id())
+        //     ->whereDate('start_time', '>=', $today)
+        //     ->orderBy('start_time', 'asc')
+        //     ->with('customer')
+        //     ->paginate(1);
+
+        $reservations = Reservation::where('user_id', Auth::id())
+            ->whereDate('start_date', '<', $today)
+            ->orderBy('end_date', 'desc')
+            ->with('customer')
+            ->paginate(10);
+        // dd($reservations->reservedDate);
+
+
+
+
+        return view('reservations.past', compact('reservations'));
+    }
 }
