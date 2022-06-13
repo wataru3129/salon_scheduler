@@ -36,10 +36,12 @@
                     @for ($i = 0; $i < 7; $i++)
                         @if (($index == 0 && $month[$index][$i]['date'] > 7) || ($index == $numberOfWeeks - 1 && $month[$index][$i]['date'] < 22))
                             <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
-                                reservation="{{ $month[$index][$i]['checkReservation'] }}" month="notThisMonth" />
+                                reservation="{{ $month[$index][$i]['checkReservation'] }}"
+                                today="{{ $month[$index][$i]['today'] }}" month="notThisMonth" />
                         @else
                             <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
-                                reservation="{{ $month[$index][$i]['checkReservation'] }}" month="thisMonth" />
+                                reservation="{{ $month[$index][$i]['checkReservation'] }}"
+                                today="{{ $month[$index][$i]['today'] }}" month="thisMonth" />
                         @endif
                     @endfor
                 </tr>

@@ -223,4 +223,9 @@ class ReservationController extends Controller {
 
         return view('reservations.past', compact('reservations'));
     }
+
+    public function daily($today) {
+        $reservations = Reservation::whereDate('start_date', '=', $today)->get();
+        dd($reservations);
+    }
 }

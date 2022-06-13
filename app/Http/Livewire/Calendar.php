@@ -241,6 +241,7 @@ class Calendar extends Component {
             'date' => $today->day,
             'dayOfWeek' => $dayOfWeek,
             'checkReservation' => $checkReservation,
+            'today' => $day,
         ];
     }
 }

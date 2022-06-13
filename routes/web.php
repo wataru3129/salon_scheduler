@@ -21,6 +21,7 @@ use App\Models\Reservation;
 Route::middleware('can:user-higher')
     ->group(function () {
         Route::get('/', [ReservationController::class, 'index'])->name('index');
+        Route::get('/daily/{day}', [ReservationController::class, 'daily'])->name('daily');
         Route::get('reservations/list', [ReservationController::class, 'list'])->name('list');
         Route::get('reservations/past', [ReservationController::class, 'past'])->name('past');
         Route::resource('reservations', ReservationController::class)->except(['index']);
