@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg flex justify-center">
                 <x-flash-message status="session('status')" />
-                <div class="flex md:w-2/3 justify-center my-8">
+                <div class="flex w-full mx-2 md:w-2/3 justify-center my-8">
                     <x-calendar.calendar-time />
                     <div class="w-2/3">
                         <div class="py-1 px-2 border border-gray-200 text-center">{{ $todayForView }}</div>
@@ -54,7 +54,7 @@
                                 @endfor
                             @else
                                 <div class="py-1 px-2 h-8 border border-gray-200">
-                                    {{ \Constant::RESERVATION_TIME[$i] }}
+
                                 </div>
                             @endif
                         @endfor
