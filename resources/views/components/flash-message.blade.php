@@ -10,7 +10,7 @@ if (session('status') === 'alert') {
 @endphp
 
 @if (session('message'))
-    <div class="{{ $bgColor }} w-1/2 mx-auto p-2 text-white">
+    <div class="{{ $bgColor }} pl-5 mt-8 mx-auto p-2 text-white">
         {{ session('message') }}
     </div>
 @endif

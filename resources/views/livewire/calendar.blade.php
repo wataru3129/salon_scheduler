@@ -2,7 +2,7 @@
     <link href="{{ mix('css/calendar.css') }}" rel="stylesheet">
 @endpush
 
-<div class="py-12 px-5">
+<div class="pb-12 pt-4 px-5">
     <div id="calendar">
         <div id="header">
             <input id="date-picker" class="block mt-1 mx-auto mb-2" type="text" name="calendar"
