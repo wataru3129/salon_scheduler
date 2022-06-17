@@ -187,12 +187,19 @@ class Calendar extends Component {
     }
 
     private function checkReservation($date) {
-        $checkReservation = DB::table('reservations')
-            ->whereDate('start_date', '=', $date)
+        // $checkReservation = DB::table('reservations')
+        //     ->whereDate('start_date', '=', $date)
+        //     ->exists();
+
+        $checkReservation = Reservation::whereDate('start_date', '=', $date)
             ->exists();
 
-        $checkOwnReservation = DB::table('reservations')
-            ->where('user_id', '=', Auth::id())
+        // $checkOwnReservation = DB::table('reservations')
+        //     ->where('user_id', '=', Auth::id())
+        //     ->whereDate('start_date', '=', $date)
+        //     ->exists();
+
+        $checkOwnReservation = Reservation::where('user_id', '=', Auth::id())
             ->whereDate('start_date', '=', $date)
             ->exists();
 
