@@ -226,6 +226,11 @@ class ReservationController extends Controller {
 
     public function daily($today) {
         $reservations = Reservation::whereDate('start_date', '=', $today)->get();
-        dd($reservations);
+        $dayOfWeek = dayOfWeekJapanese($today);
+
+
+        $todayForView = Carbon::parse($today)->format('m月d日');
+        $myId = Auth::id();
+        return view('calendar.daily', compact('today', 'dayOfWeek', 'todayForView', 'reservations', 'myId'));
     }
 }

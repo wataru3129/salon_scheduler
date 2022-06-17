@@ -52,10 +52,10 @@ class ReservationService {
   }
 
 
-  public static function checkReservationOfTheDay($date){
+  // public static function checkReservationOfTheDay($date){
 
-    $
+  //   $
 
-    $check = Reservation::
-  }
+  //   $check = Reservation::
+  // }
 }

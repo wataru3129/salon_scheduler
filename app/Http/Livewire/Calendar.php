@@ -212,30 +212,8 @@ class Calendar extends Component {
 
         $today = new Carbon($day);
 
-        switch ($today->dayOfWeek) {
-            case 0:
-                $dayOfWeek = '日';
-                break;
+        $dayOfWeek = dayOfWeekJapanese($today->format('Y-m-d'));
 
-            case 1:
-                $dayOfWeek = '月';
-                break;
-            case 2:
-                $dayOfWeek = '火';
-                break;
-            case 3:
-                $dayOfWeek = '水';
-                break;
-            case 4:
-                $dayOfWeek = '木';
-                break;
-            case 5:
-                $dayOfWeek = '金';
-                break;
-            case 6:
-                $dayOfWeek = '土';
-                break;
-        }
 
         return [
             'date' => $today->day,

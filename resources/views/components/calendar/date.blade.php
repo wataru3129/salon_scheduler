@@ -15,4 +15,12 @@ switch ($reservation) {
 }
 @endphp
 
-<th @class ($class)>{{ $date }}</th>
+@if ($reservation == 0)
+    <th @class ($class)>{{ $date }}</th>
+@else
+    <th @class ($class)>
+        <a href="{{ route('daily', ['day' => $today]) }}">
+            {{ $date }}
+        </a>
+    </th>
+@endif
