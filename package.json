@@ -19,5 +19,11 @@
         "postcss": "^8.1.14",
         "postcss-import": "^14.0.1",
         "tailwindcss": "^3.0.0"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^5.11.0",
+        "@fullcalendar/daygrid": "^5.11.0",
+        "flatpickr": "^4.6.13",
+        "fullcalendar": "^5.11.0"
     }
 }
