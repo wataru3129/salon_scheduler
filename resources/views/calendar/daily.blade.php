@@ -12,67 +12,51 @@
                 <div class="flex md:w-2/3 justify-center my-8">
                     <x-calendar.calendar-time />
                     <div class="w-2/3">
-                        <div class="py-1 px-2 border border-gray-200 text-center">{{ $today }}</div>
+                        <div class="py-1 px-2 border border-gray-200 text-center">{{ $todayForView }}</div>
                         <div class="py-1 px-2 border border-gray-200 text-center">{{ $dayOfWeek }}</div>
-                        @for ($i = 0; $i < 65; $i++)
-                            {{-- <div class="py-1 px-2 h-8 border border-gray-200">
-                            {{ \Constant::RESERVATION_TIME[$i] }}
-                            {{ $i }}
-                        </div> --}}
-                            {{-- @endfor --}}
-
-                            {{-- @for ($j = 0; $j < 21; $j++) --}}
-
-                            @if (!is_null($reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i])))
+                        @for ($i = 0; $i < 67; $i++)
+                            @if (in_array(\Constant::RESERVATION_TIME[$i], $isReservationTime))
                                 @php
-                                    
-                                    $reservationId = $reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i])->id;
-                                    $reservationBy = $reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i])->user->name;
-                                    $reservationById = $reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i])->user->id;
-                                    $customerName = $reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i])->customer->name;
-                                    $reservationInfo = $reservations->firstWhere('start_date', $today . ' ' . \Constant::RESERVATION_TIME[$i]);
-                                    $reservationPeriod = \Carbon\Carbon::parse($reservationInfo->start_date)->diffInMinutes($reservationInfo->end_date) / 10 - 3;
-                                    
-                                    // dd($maxPeople,$numberOfPeople,$reservationAvailable)
-                                    if (!is_null($reservations->firstWhere('user_id', $myId))) {
-                                        $bgColor = 'bg-blue-300';
-                                    } else {
-                                        $bgColor = 'bg-orange-200';
-                                    }
+                                    $reservation = $reservationInfo[\Constant::RESERVATION_TIME[$i]];
+                                    $counter = $reservation['reservationPeriod'];
+                                    $i += $counter;
                                     
                                 @endphp
-                                <div class="py-1 px-2 h-8 border border-gray-200 {{ $bgColor }}">
-                                    {{ $reservationBy }}
+                                <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                    {{ $reservation['start_time'] }}-{{ $reservation['end_time'] }}
                                 </div>
-                                <div class="py-1 px-2 h-8 border border-gray-200 {{ $bgColor }}">
-                                    {{ $reservationInfo->startTime }}-{{ $reservationInfo->endTime }}
+                                <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                    {{ $reservation['user'] }}
                                 </div>
-                                @if ($reservationById == $myId)
-                                    <div class="py-1 px-2 h-8 border border-gray-200 {{ $bgColor }}">
-                                        {{ $customerName }}
+
+
+                                @php
+                                    $counter--;
+                                @endphp
+                                @if ($reservation['isMyReservation'])
+                                    <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                        {{ $reservation['customer'] }}
+                                    </div>
+                                    <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                        <a
+                                            href="{{ route('reservations.show', ['reservation' => $reservation['id']]) }}">
+                                            予約詳細
+                                        </a>
                                     </div>
                                     @php
-                                        $reservationPeriod--;
+                                        $counter -= 2;
                                     @endphp
                                 @endif
 
-                                @if ($reservationPeriod > 0)
-                                    @for ($j = 0; $j < $reservationPeriod; $j++)
-                                        <div class="py-1 px-2 h-8 border border-gray-200 {{ $bgColor }}">
-                                        </div>
-                                    @endfor
-                                    @php
-                                        $i = $reservationPeriod;
-                                    @endphp
-                                @endif
+                                @for ($j = 0; $j < $counter; $j++)
+                                    <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                    </div>
+                                @endfor
                             @else
-                                <div class="py-1 px-2 h-8 border border-gray-200"></div>
-                                {{-- <x-calendar.reservation-period is-my-reservation="{{ $isMyReservation }}"
-                                    content="" /> --}}
-
+                                <div class="py-1 px-2 h-8 border border-gray-200">
+                                    {{ \Constant::RESERVATION_TIME[$i] }}
+                                </div>
                             @endif
-
-
                         @endfor
 
                     </div>

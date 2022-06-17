@@ -225,12 +225,51 @@ class ReservationController extends Controller {
     }
 
     public function daily($today) {
+
         $reservations = Reservation::whereDate('start_date', '=', $today)->get();
+        if ($reservations->isEmpty()) {
+            return redirect()->route('index')
+                ->with([
+                    'message' => '予約が存在しません。',
+                    'status' => 'alert'
+                ]);;
+        }
         $dayOfWeek = dayOfWeekJapanese($today);
 
 
         $todayForView = Carbon::parse($today)->format('m月d日');
         $myId = Auth::id();
-        return view('calendar.daily', compact('today', 'dayOfWeek', 'todayForView', 'reservations', 'myId'));
+
+        $isReservationTime = [];
+        $reservationsInfo = [];
+
+        foreach ($reservations as $reservation) {
+            // dd($reservation);
+            $reservationDetail = [];
+            $startTime = Carbon::parse($reservation->start_date)->format('H:i:s');
+            $isReservationTime[] = $startTime;
+            $reservationDetail['id'] = $reservation->id;
+            $reservationDetail['start_time'] =  Carbon::parse($reservation->start_date)->format('H:i');
+            $reservationDetail['end_time'] =  Carbon::parse($reservation->end_date)->format('H:i');
+
+            $reservationDetail['user'] = $reservation->user->name;
+            $reservationDetail['customer'] = $reservation->customer->name;
+            if ($reservation->user_id == Auth::id()) {
+                $reservationDetail['isMyReservation'] = true;
+                $reservationDetail['bgColor'] = 'bg-blue-300';
+            } else {
+                $reservationDetail['isMyReservation'] = false;
+                $reservationDetail['bgColor'] = 'bg-orange-200';
+            }
+            $reservationDetail['reservationPeriod'] = Carbon::parse($reservation->start_date)
+                ->diffInMinutes($reservation->end_date) / 10 - 1;
+
+            $reservationInfo[$startTime] = $reservationDetail;
+            // $reservationDetail['']=$reservation->;
+
+        }
+
+        // dd($reservationInfo);
+        return view('calendar.daily', compact('dayOfWeek', 'myId', 'todayForView', 'isReservationTime', 'reservationInfo'));
     }
 }
