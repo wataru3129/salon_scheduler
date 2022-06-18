@@ -37,11 +37,13 @@
                         @if (($index == 0 && $month[$index][$i]['date'] > 7) || ($index == $numberOfWeeks - 1 && $month[$index][$i]['date'] < 22))
                             <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
                                 reservation="{{ $month[$index][$i]['checkReservation'] }}"
-                                today="{{ $month[$index][$i]['today'] }}" month="notThisMonth" />
+                                today="{{ $month[$index][$i]['today'] }}" month="notThisMonth"
+                                dayoff="{{ $month[$index][$i]['dayOff'] }}" />
                         @else
                             <x-calendar.date date="{{ $month[$index][$i]['date'] }}"
                                 reservation="{{ $month[$index][$i]['checkReservation'] }}"
-                                today="{{ $month[$index][$i]['today'] }}" month="thisMonth" />
+                                today="{{ $month[$index][$i]['today'] }}" month="thisMonth"
+                                dayoff="{{ $month[$index][$i]['dayOff'] }}" />
                         @endif
                     @endfor
                 </tr>

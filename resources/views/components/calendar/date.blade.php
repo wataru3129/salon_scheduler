@@ -5,17 +5,22 @@ if ($month === 'notThisMonth') {
     $class[] = 'text-slate-400';
 }
 
-switch ($reservation) {
-    case 1:
-        $class[] = 'bg-blue-300';
-        break;
-    case 2:
-        $class[] = 'bg-orange-200';
-        break;
+if ($dayoff) {
+    $class[] = 'bg-red-300';
+} else {
+    switch ($reservation) {
+        case 1:
+            $class[] = 'bg-blue-300';
+            break;
+        case 2:
+            $class[] = 'bg-orange-200';
+            break;
+    }
 }
+
 @endphp
 
-@if ($reservation == 0)
+@if ($reservation == 0 || $dayoff)
     <th @class ($class)>{{ $date }}</th>
 @else
     <th @class ($class)>

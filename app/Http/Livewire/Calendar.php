@@ -219,6 +219,16 @@ class Calendar extends Component {
 
         $today = new Carbon($day);
 
+        $holiday = DB::table('holidays')
+            ->whereDate('day_off', '=', $day)
+            ->first();
+
+        if ($holiday) {
+            $dayOff = true;
+        } else {
+            $dayOff = false;
+        }
+
         $dayOfWeek = dayOfWeekJapanese($today->format('Y-m-d'));
 
 
@@ -227,6 +237,7 @@ class Calendar extends Component {
             'dayOfWeek' => $dayOfWeek,
             'checkReservation' => $checkReservation,
             'today' => $day,
+            'dayOff' => $dayOff,
         ];
     }
 }
