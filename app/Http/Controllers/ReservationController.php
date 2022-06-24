@@ -123,7 +123,7 @@ class ReservationController extends Controller {
     public function update(UpdateReservationRequest $request, Reservation $reservation) {
         // dd($request, $reservation);
 
-        $check = ReservationService::checkReservationDuplicationExceptOwn($request->id, $request->date, $request->start_time, $request->end_time);
+        $check = ReservationService::checkReservationDuplicationExceptOwn($reservation->id, $request->date, $request->start_time, $request->end_time);
         // dd($check);
         $reservation = Reservation::findOrFail($reservation->id);
         // dd($reservation->id);

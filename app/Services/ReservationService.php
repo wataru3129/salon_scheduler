@@ -26,7 +26,7 @@ class ReservationService {
       ->get()
       ->toArray();
 
-    // dd($event);
+    // dd($reservation);
 
     // そもそも日付が重複していない
     if (empty($reservation)) {
@@ -35,6 +35,8 @@ class ReservationService {
 
     // 重複があったイベントのidを取得
     $reservationId = $reservation[0]->id;
+
+    // dd($reservationId, $ownReservationId);
 
     // 重複していたイベントが自身の場合、重なっていないと判定
     if ($ownReservationId === $reservationId) {
