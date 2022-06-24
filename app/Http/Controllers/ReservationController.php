@@ -57,14 +57,32 @@ class ReservationController extends Controller {
                     'entry_customer_name' => $request->customer_name,
                 ]);
         }
+
+
+        // return $minutes - ($minutes % 15);
+
+        // dd($request->start_time, $request->end_time);
         // dd(Customer::where('name', $request->customer_name)
         //     ->first()->id);
         // dd($a->id);
 
         $customer_id = CustomerService::customerSet($request->customer_name);
 
-        $start_date = ReservationService::joinDateAndTime($request->date, $request->start_time);
-        $end_date = ReservationService::joinDateAndTime($request->date, $request->end_time);
+        if (!preg_match('/\d{2}\:\d0/', $request->start_time)) {
+            $start_time = roundTime($request->start_time);
+        } else {
+            $start_time = $request->start_time;
+        }
+
+        if (!preg_match('/\d{2}\:\d0/', $request->end_time)) {
+            $end_time = roundTime($request->end_time);
+        } else {
+            $end_time = $request->end_time;
+        }
+
+
+        $start_date = ReservationService::joinDateAndTime($request->date, $start_time);
+        $end_date = ReservationService::joinDateAndTime($request->date, $end_time);
 
         Reservation::create([
             'user_id' => Auth::id(),
@@ -145,8 +163,20 @@ class ReservationController extends Controller {
 
         $customer_id = CustomerService::customerSet($request->customer_name);
 
-        $start_date = ReservationService::joinDateAndTime($request->date, $request->start_time);
-        $end_date = ReservationService::joinDateAndTime($request->date, $request->end_time);
+        if (!preg_match('/\d{2}\:\d0/', $request->start_time)) {
+            $start_time = roundTime($request->start_time);
+        } else {
+            $start_time = $request->start_time;
+        }
+
+        if (!preg_match('/\d{2}\:\d0/', $request->end_time)) {
+            $end_time = roundTime($request->end_time);
+        } else {
+            $end_time = $request->end_time;
+        }
+
+        $start_date = ReservationService::joinDateAndTime($request->date, $start_time);
+        $end_date = ReservationService::joinDateAndTime($request->date, $end_time);
 
         $reservation->customer_id = $customer_id;
         $reservation->start_date = $start_date;

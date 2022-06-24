@@ -31,3 +31,15 @@ function dayOfWeekJapanese($date) {
 
   return $dayOfWeek;
 }
+
+function roundTime($time) {
+
+  // 時刻をUnix秒に変換
+  $seconds = strtotime(Carbon::parse($time));
+
+  // 10分単位で四捨五入
+  $roundedSeconds = round($seconds / (10 * 60)) * (10 * 60);
+
+  $roundedTime = date('H:i', $roundedSeconds);
+  return $roundedTime;
+}

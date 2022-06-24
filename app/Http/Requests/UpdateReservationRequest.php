@@ -22,9 +22,9 @@ class UpdateReservationRequest extends FormRequest {
     public function rules() {
         return [
             'content' => ['max:200'],
-            'date' => ['required', 'date'],
-            'start_time' => ['required'],
-            'end_time' => ['required', 'after:start_time'],
+            'date' => ['required', 'date', 'after_or_equal:today'],
+            'start_time' => ['required', 'after_or_equal:10:00'],
+            'end_time' => ['required', 'after:start_time', 'before_or_equal:20:00'],
         ];
     }
 }
