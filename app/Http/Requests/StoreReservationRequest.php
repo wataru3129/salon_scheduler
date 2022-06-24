@@ -22,7 +22,7 @@ class StoreReservationRequest extends FormRequest {
     public function rules() {
         return [
             'content' => ['max:200'],
-            'date' => ['required', 'date'],
+            'date' => ['required', 'date', 'after_or_equal:today'],
             'start_time' => ['required'],
             'end_time' => ['required', 'after:start_time'],
         ];

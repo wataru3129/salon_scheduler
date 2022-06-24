@@ -8,6 +8,8 @@ import {
 
 const setting_for_month = {
     'locale': Japanese,
+    'disableMobile': 'true',
+    'position': 'below center',
     'plugins': [new monthSelectPlugin({
         // 'altFormat': 'Y年-f',
         'dateFormat': 'Y-m',
@@ -18,7 +20,7 @@ const setting_for_month = {
 
 const setting_for_date = {
     "locale": Japanese,
-    // 'minDate': 'today',
+    'minDate': 'today',
     // maxDate: new Date().fp_incr(30),
 }
 
@@ -28,7 +30,7 @@ const setting_for_time = {
     noCalendar: true,
     dateFormat: 'H:i',
     time_24hr: true,
-    minTime: '9:00',
+    minTime: '10:00',
     maxTime: '20:00',
     minuteIncrement: 10,
 }

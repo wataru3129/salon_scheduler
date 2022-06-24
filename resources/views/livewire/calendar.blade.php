@@ -6,7 +6,7 @@
     <div id="calendar">
         <div id="header">
             <input id="date-picker" class="block mt-1 mx-auto mb-2" type="text" name="calendar"
-                value="{{ $today }}" wire:change="getMonth($event.target.value)" />
+                value="{{ $today }}" wire:change="getMonth($event.target.value)" readonly="readonly" />
             {{ $today }}
 
             <div id="next-prev-button">

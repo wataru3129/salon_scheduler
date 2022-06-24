@@ -164,4 +164,11 @@ return [
         'end_time' => '終了時間',
     ],
 
+
+    'values' => [
+        'date' => [
+            'today' => '本日'
+        ],
+    ],
+
 ];

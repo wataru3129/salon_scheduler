@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            新規予約登録
+            予約修正
         </h2>
     </x-slot>
 

@@ -5,12 +5,6 @@ namespace app\Constants;
 class ReservationConst {
 
   const RESERVATION_TIME = [
-    '09:00:00',
-    '09:10:00',
-    '09:20:00',
-    '09:30:00',
-    '09:40:00',
-    '09:50:00',
     '10:00:00',
     '10:10:00',
     '10:20:00',

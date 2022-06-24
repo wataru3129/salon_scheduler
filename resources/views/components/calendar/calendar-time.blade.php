@@ -1,12 +1,6 @@
 <div>
     <div class="py-1 px-2 border border-gray-200 text-center">日付</div>
     <div class="py-1 px-2 border border-gray-200 text-center">曜日</div>
-    <div class="py-1 px-2 h-8 border border-gray-200">9:00</div>
-    <div class="py-1 px-2 h-8 border border-gray-200"></div>
-    <div class="py-1 px-2 h-8 border border-gray-200"></div>
-    <div class="py-1 px-2 h-8 border border-gray-200">9:30</div>
-    <div class="py-1 px-2 h-8 border border-gray-200"></div>
-    <div class="py-1 px-2 h-8 border border-gray-200"></div>
     <div class="py-1 px-2 h-8 border border-gray-200">10:00</div>
     <div class="py-1 px-2 h-8 border border-gray-200"></div>
     <div class="py-1 px-2 h-8 border border-gray-200"></div>

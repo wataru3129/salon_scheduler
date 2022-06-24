@@ -14,7 +14,7 @@
                     <div class="w-2/3">
                         <div class="py-1 px-2 border border-gray-200 text-center">{{ $todayForView }}</div>
                         <div class="py-1 px-2 border border-gray-200 text-center">{{ $dayOfWeek }}</div>
-                        @for ($i = 0; $i < 67; $i++)
+                        @for ($i = 0; $i < 61; $i++)
                             @if (in_array(\Constant::RESERVATION_TIME[$i], $isReservationTime))
                                 @php
                                     $reservation = $reservationInfo[\Constant::RESERVATION_TIME[$i]];
@@ -34,17 +34,24 @@
                                     $counter--;
                                 @endphp
                                 @if ($reservation['isMyReservation'])
-                                    <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
-                                        {{ $reservation['customer'] }}
-                                    </div>
+                                    @if ($reservation['customer'] != null)
+                                        <div
+                                            class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
+                                            {{ $reservation['customer'] }}
+                                        </div>
+                                        @php
+                                            $counter--;
+                                            
+                                        @endphp
+                                    @endif
                                     <div class="py-1 px-2 h-8 border border-gray-200 {{ $reservation['bgColor'] }}">
                                         <a
                                             href="{{ route('reservations.show', ['reservation' => $reservation['id']]) }}">
-                                            予約詳細
+                                            予約詳細を表示する
                                         </a>
                                     </div>
                                     @php
-                                        $counter -= 2;
+                                        $counter--;
                                     @endphp
                                 @endif
 

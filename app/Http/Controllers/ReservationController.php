@@ -253,7 +253,11 @@ class ReservationController extends Controller {
             $reservationDetail['end_time'] =  Carbon::parse($reservation->end_date)->format('H:i');
 
             $reservationDetail['user'] = $reservation->user->name;
-            $reservationDetail['customer'] = $reservation->customer->name;
+            if ($reservation->customer->name !== '設定なし') {
+                $reservationDetail['customer'] = $reservation->customer->name;
+            } else {
+                $reservationDetail['customer'] = '';
+            }
             if ($reservation->user_id == Auth::id()) {
                 $reservationDetail['isMyReservation'] = true;
                 $reservationDetail['bgColor'] = 'bg-blue-300';

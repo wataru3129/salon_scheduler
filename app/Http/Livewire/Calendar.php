@@ -25,6 +25,7 @@ class Calendar extends Component {
     public $lastMonth;
     public $lastDayOfLastMonth;
     public $nextMonth;
+    public $holidays = [];
 
     private $counter;
     private $week = [];
@@ -34,7 +35,7 @@ class Calendar extends Component {
         $this->date = new CarbonImmutable;
         // $this->date = $this->date->day(1)->month(1);
         // $this->today = $this->date->format('Y年m月');
-        // // dd($this->date);
+        // dd($this->date);
 
         // $this->currentMonth = $this->date->month;
         // $this->firstDayOfMonth = $this->date->day(1)->dayOfWeek;
@@ -64,10 +65,17 @@ class Calendar extends Component {
         $this->lastDayOfMonth = $date->daysInMonth;
         // dd($this->lastDayOfMonth, $date);
         $this->lastMonth = $date->subMonthNoOverflow();
-        // dd($date, $this->lastMonth);
         $this->lastDayOfLastMonth = $this->lastMonth->daysInMonth;
 
         $this->nextMonth = $date->addMonth();
+        $this->getHolidays($this->date);
+        // dd($this->lastMonth, $this->nextMonth);
+    }
+
+    private function getHolidays($date) {
+
+        $lastMonth = $date->subMonthNoOverflow()->day('22');
+        $nextMonth = $date->addMonth()->day('7');
     }
 
     private function settingMonth($firstDayOfMonth, $lastDayOfLastMonth, $lastDayOfMonth, $year) {

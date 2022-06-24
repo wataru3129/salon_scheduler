@@ -3197,6 +3197,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var setting_for_month = {
   'locale': flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_2__.Japanese,
+  'disableMobile': 'true',
+  'position': 'below center',
   'plugins': [new (flatpickr_dist_plugins_monthSelect_index__WEBPACK_IMPORTED_MODULE_1___default())({
     // 'altFormat': 'Y年-f',
     'dateFormat': 'Y-m'
@@ -3205,8 +3207,8 @@ var setting_for_month = {
 
 };
 var setting_for_date = {
-  "locale": flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_2__.Japanese // 'minDate': 'today',
-  // maxDate: new Date().fp_incr(30),
+  "locale": flatpickr_dist_l10n_ja_js__WEBPACK_IMPORTED_MODULE_2__.Japanese,
+  'minDate': 'today' // maxDate: new Date().fp_incr(30),
 
 };
 var setting_for_time = {
@@ -3215,7 +3217,7 @@ var setting_for_time = {
   noCalendar: true,
   dateFormat: 'H:i',
   time_24hr: true,
-  minTime: '9:00',
+  minTime: '10:00',
   maxTime: '20:00',
   minuteIncrement: 10
 };
