@@ -76,6 +76,19 @@ class ReservationController extends Controller {
 
         if (!preg_match('/\d{2}\:\d0/', $request->end_time)) {
             $end_time = roundTime($request->end_time);
+
+            if ($start_time == $end_time) {
+                return to_route('reservations.create')
+                    ->with([
+                        'message' => '終了時間が不正です。',
+                        'status' => 'alert',
+                        'entry_date' => $request->date,
+                        'entry_start_time' => $request->start_time,
+                        'entry_end_time' => $request->end_time,
+                        'entry_content' => $request->content,
+                        'entry_customer_name' => $request->customer_name,
+                    ]);
+            }
         } else {
             $end_time = $request->end_time;
         }
@@ -171,6 +184,18 @@ class ReservationController extends Controller {
 
         if (!preg_match('/\d{2}\:\d0/', $request->end_time)) {
             $end_time = roundTime($request->end_time);
+            if ($start_time == $end_time) {
+                return to_route('reservations.editg')
+                    ->with([
+                        'message' => '終了時間が不正です。',
+                        'status' => 'alert',
+                        'entry_date' => $request->date,
+                        'entry_start_time' => $request->start_time,
+                        'entry_end_time' => $request->end_time,
+                        'entry_content' => $request->content,
+                        'entry_customer_name' => $request->customer_name,
+                    ]);
+            }
         } else {
             $end_time = $request->end_time;
         }
